@@ -1,5 +1,6 @@
 import { Dashboard } from "./components/Dashboard";
 import { Sidebar } from "./components/Sidebar";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <main className="bg-[#f7f9fa] flex">
       <Sidebar />
       <Dashboard />
+      <Toaster />
     </main>
   );
 }

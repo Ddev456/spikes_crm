@@ -174,10 +174,6 @@ export const Navigation = () => {
           ))}
         </Tabs>
       </div>
-      <div className="options flex gap-[193px]">
-        <div className="search"></div>
-        <div className="actions"></div>
-      </div>
     </div>
   );
 };

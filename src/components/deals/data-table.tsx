@@ -2,6 +2,7 @@ import {
   SortingState,
   ColumnDef,
   ColumnFiltersState,
+  VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -34,6 +35,7 @@ import { ExportIcon } from "@/assets/icons/ExportIcon";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { deals } from "../Navigation";
+import { useToast } from "../ui/use-toast";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -44,9 +46,13 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const { toast } = useToast();
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [rowSelection, setRowSelection] = useState({});
+
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+
   const table = useReactTable({
     data,
     columns,
@@ -56,9 +62,11 @@ export function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onRowSelectionChange: setRowSelection,
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       columnFilters,
+      columnVisibility,
       rowSelection,
     },
   });
@@ -67,6 +75,8 @@ export function DataTable<TData, TValue>({
   const objectsFromDeals = deals.map((deal) => {
     return deal.object;
   });
+
+  const uniqueObjectValues = [...new Set(objectsFromDeals)];
 
   const companiesFromDeals = deals.map((deal) => {
     return deal.company;
@@ -110,7 +120,7 @@ export function DataTable<TData, TValue>({
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
               <SelectContent>
-                {objectsFromDeals.map((object) => (
+                {uniqueObjectValues.map((object) => (
                   <SelectItem value={object}>{object}</SelectItem>
                 ))}
               </SelectContent>
@@ -152,7 +162,15 @@ export function DataTable<TData, TValue>({
             </Select>
           </div>
           <div className="flex gap-[8px]">
-            <Button className="hover:bg-[#E8E7EA] text-[12px] flex gap-[5px] px-[16px] py-[4px] w-[89px] h-[32px] border border-[#E8E7EA] bg-white text-[#101828]">
+            <Button
+              onClick={() => {
+                toast({
+                  title: "Deals exported successfully !",
+                  description: new Date(Date.now()).toDateString(),
+                });
+              }}
+              className="hover:bg-[#E8E7EA] text-[12px] flex gap-[5px] px-[16px] py-[4px] w-[89px] h-[32px] border border-[#E8E7EA] bg-white text-[#101828]"
+            >
               <ExportIcon />
               <span>Export</span>
             </Button>
