@@ -6,9 +6,5 @@ interface DealsTableProps {
 }
 
 export const DealsTable = ({ deals }: DealsTableProps) => {
-  return (
-    <div className="">
-      <DataTable columns={columns} data={deals} />
-    </div>
-  );
+  return <DataTable columns={columns} data={deals} />;
 };

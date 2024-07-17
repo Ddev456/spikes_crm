@@ -92,12 +92,12 @@ export function DataTable<TData, TValue>({
   ];
 
   return (
-    <div>
-      <div className="flex items-center py-4">
-        <div className="flex gap-[193px] items-center">
+    <div className="w-full">
+      <div className="w-full 2xl:w-[968px] flex items-center py-4">
+        <div className="flex gap-[15px] md:gap-[60px] xl:gap-[193px] items-center">
           <div className="flex gap-[12px]">
             <div
-              className="h-8 !w-[238px] border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
+              className="h-8 w-[120px] lg:!w-[238px] border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
               cmdk-input-wrapper=""
             >
               <Search className="mr-2 shrink-0 h-[13px] w-[13px]" />
@@ -116,7 +116,7 @@ export function DataTable<TData, TValue>({
             </div>
 
             <Select>
-              <SelectTrigger className="h-8 bg-white">
+              <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
               <SelectContent>
@@ -126,7 +126,7 @@ export function DataTable<TData, TValue>({
               </SelectContent>
             </Select>
             <Select>
-              <SelectTrigger className="h-8 bg-white">
+              <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
               <SelectContent>
@@ -141,7 +141,7 @@ export function DataTable<TData, TValue>({
               </SelectContent>
             </Select>
             <Select>
-              <SelectTrigger className="h-8 bg-white">
+              <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Statue" />
               </SelectTrigger>
               <SelectContent>
@@ -181,7 +181,7 @@ export function DataTable<TData, TValue>({
           </div>
         </div>
       </div>
-      <div className="w-[1100px] ml-[-9px]">
+      <div className="w-full">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

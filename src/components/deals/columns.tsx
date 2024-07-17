@@ -23,7 +23,7 @@ export const columns: ColumnDef<Deals>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <div className="gap-[12px] px-[24px] py-[12px]">
+      <div className="hidden lg:flex gap-[12px] px-[24px] py-[12px]">
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
@@ -35,7 +35,7 @@ export const columns: ColumnDef<Deals>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="gap-[12px] px-[24px] py-[12px]">
+      <div className="hidden lg:flex gap-[12px] px-[24px] py-[12px]">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -53,7 +53,7 @@ export const columns: ColumnDef<Deals>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center"
+          className="hidden lg:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center"
         >
           Add
           <ArrowDown className="h-4 w-4" />
@@ -67,7 +67,7 @@ export const columns: ColumnDef<Deals>[] = [
         year: "2-digit",
       });
       return (
-        <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="hidden lg:flex text-[#344054] font-medium text-[14px] gap-[12px] px-[24px] py-[12px] items-center">
           <span>{`${formattedDate.split(" ")[0]}. ${
             formattedDate.split(" ")[1]
           }`}</span>
@@ -77,12 +77,14 @@ export const columns: ColumnDef<Deals>[] = [
   },
   {
     accessorKey: "object",
-    header: () => <div className="px-[24px] py-[12px]">Object</div>,
+    header: () => (
+      <div className="hidden xl:flex px-[24px] py-[12px]">Object</div>
+    ),
     cell: ({ row }) => {
       const object = row.original.object;
 
       return (
-        <div className="flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="hidden xl:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center">
           <span>{object}</span>
         </div>
       );

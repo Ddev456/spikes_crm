@@ -145,14 +145,14 @@ export const Navigation = () => {
 
   return (
     <div className="mt-[34px] flex gap-[36px]">
-      <div className="navigation-tabs flex flex-col gap-[16px] ml-[45px]">
+      <div className="w-full navigation-tabs flex flex-col gap-[16px] pl-[12px] lg:pl-[45px]">
         <h3 className="text-[36px] leading-[44px] font-semibold text-[#344054]">
           Deals
         </h3>
         <Tabs
           onValueChange={(value) => handleTabClick(value)}
           defaultValue="all"
-          className="w-[400px]"
+          className="w-full"
         >
           <div className="flex gap-[3px]">
             <TabsList>

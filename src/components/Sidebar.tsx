@@ -27,7 +27,8 @@ import {
 export const Sidebar = () => {
   return (
     <>
-      <aside className="flex flex-col justify-between gap-[34px] mt-[32px] w-[326px] bg-background">
+      {/* GAP 34 ? */}
+      <aside className="flex flex-col justify-between mt-[32px] w-[326px] bg-background">
         <div className="w-full aside_links flex flex-col">
           <div className="aside_links_header flex flex-col gap-[24px] items-start px-[16px] py-[9px]">
             <img src="/logo.png" alt="logo" width={32} height={32} />
