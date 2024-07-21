@@ -115,7 +115,14 @@ export function DataTable<TData, TValue>({
               />
             </div>
 
-            <Select>
+            <Select
+              value={
+                (table.getColumn("object")?.getFilterValue() as string) ?? ""
+              }
+              onValueChange={(event: string) =>
+                table.getColumn("object")?.setFilterValue(event)
+              }
+            >
               <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
@@ -125,7 +132,14 @@ export function DataTable<TData, TValue>({
                 ))}
               </SelectContent>
             </Select>
-            <Select>
+            <Select
+              value={
+                (table.getColumn("company")?.getFilterValue() as string) ?? ""
+              }
+              onValueChange={(event: string) => {
+                table.getColumn("company")?.setFilterValue(event.toString());
+              }}
+            >
               <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
@@ -140,7 +154,14 @@ export function DataTable<TData, TValue>({
                 ))}
               </SelectContent>
             </Select>
-            <Select>
+            <Select
+              value={
+                (table.getColumn("statue")?.getFilterValue() as string) ?? ""
+              }
+              onValueChange={(event: string) =>
+                table.getColumn("statue")?.setFilterValue(event)
+              }
+            >
               <SelectTrigger className="hidden xl:flex h-8 bg-white">
                 <SelectValue placeholder="Statue" />
               </SelectTrigger>
@@ -160,6 +181,14 @@ export function DataTable<TData, TValue>({
                 ))}
               </SelectContent>
             </Select>
+            <Button
+              className="hidden lg:flex h-8"
+              onClick={() => {
+                table.setColumnFilters([]);
+              }}
+            >
+              Reset Filters
+            </Button>
           </div>
           <div className="flex gap-[8px]">
             <Button

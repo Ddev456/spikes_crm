@@ -28,7 +28,7 @@ export const Sidebar = () => {
   return (
     <>
       {/* GAP 34 ? */}
-      <aside className="flex flex-col justify-between mt-[32px] w-[326px] bg-background">
+      <aside className="hidden lg:flex flex-col justify-between mt-[32px] w-[326px] bg-background">
         <div className="w-full aside_links flex flex-col">
           <div className="aside_links_header flex flex-col gap-[24px] items-start px-[16px] py-[9px]">
             <img src="/logo.png" alt="logo" width={32} height={32} />
@@ -41,7 +41,7 @@ export const Sidebar = () => {
               Navigation
             </span>
             <ul>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -50,7 +50,7 @@ export const Sidebar = () => {
                   <span>Home</span>
                 </a>
               </li>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -59,7 +59,7 @@ export const Sidebar = () => {
                   <span>Clients</span>
                 </a>
               </li>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -68,7 +68,7 @@ export const Sidebar = () => {
                   <span>Leads</span>
                 </a>
               </li>
-              <li className="bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -84,7 +84,7 @@ export const Sidebar = () => {
               Your lists
             </span>
             <ul>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -93,7 +93,7 @@ export const Sidebar = () => {
                   <span>Inboud</span>
                 </a>
               </li>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -102,7 +102,7 @@ export const Sidebar = () => {
                   <span>Outbound</span>
                 </a>
               </li>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -116,7 +116,7 @@ export const Sidebar = () => {
           <div className="w-full aside_links_settings pl-[28px] flex flex-col gap-[4px] py-[12px] px-[32px]">
             <span className="text-[#A0A2A6] text-[14px] leading-[24px] font-semibold"></span>
             <ul>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -128,7 +128,7 @@ export const Sidebar = () => {
                   </Badge>
                 </a>
               </li>
-              <li className="hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+              <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                 <a
                   href="#"
                   className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"

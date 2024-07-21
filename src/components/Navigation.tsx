@@ -154,8 +154,8 @@ export const Navigation = () => {
           defaultValue="all"
           className="w-full"
         >
-          <div className="flex gap-[3px]">
-            <TabsList>
+          <div className="flexgap-[3px]">
+            <TabsList className="mb-[2rem] lg:mb-0 flex-wrap max-w-[450px] lg:max-w-full lg:flex-nowrap">
               {tabs.map((tab) => (
                 <TabsTrigger
                   key={tab.value}
