@@ -4,10 +4,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowDown } from "lucide-react";
 import { Button } from "../ui/button";
+import { companies, Deal, Statue } from "@/store/store";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Deals = {
+/* export type Deals = {
   id: string;
   add: Date;
   amount: number;
@@ -17,13 +18,13 @@ export type Deals = {
     name: string;
     logo: JSX.Element;
   };
-};
+}; */
 
-export const columns: ColumnDef<Deals>[] = [
+export const columns: ColumnDef<Deal>[] = [
   {
     id: "select",
     header: ({ table }) => (
-      <div className="hidden lg:flex gap-[12px] px-[24px] py-[12px]">
+      <div className="hidden lg:flex gap-[12px] lg:px-[24px] py-[12px]">
         <Checkbox
           checked={
             table.getIsAllPageRowsSelected() ||
@@ -35,7 +36,7 @@ export const columns: ColumnDef<Deals>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="hidden lg:flex gap-[12px] px-[24px] py-[12px]">
+      <div className="hidden lg:flex gap-[12px] lg:px-[24px] py-[12px]">
         <Checkbox
           checked={row.getIsSelected()}
           onCheckedChange={(value) => row.toggleSelected(!!value)}
@@ -53,7 +54,7 @@ export const columns: ColumnDef<Deals>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hidden lg:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center"
+          className="hidden lg:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center"
         >
           Add
           <ArrowDown className="h-4 w-4" />
@@ -67,7 +68,7 @@ export const columns: ColumnDef<Deals>[] = [
         year: "2-digit",
       });
       return (
-        <div className="hidden lg:flex text-[#344054] font-medium text-[14px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="hidden lg:flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span>{`${formattedDate.split(" ")[0]}. ${
             formattedDate.split(" ")[1]
           }`}</span>
@@ -78,13 +79,13 @@ export const columns: ColumnDef<Deals>[] = [
   {
     accessorKey: "object",
     header: () => (
-      <div className="hidden xl:flex px-[24px] py-[12px]">Object</div>
+      <div className="hidden xl:flex lg:px-[24px] py-[12px]">Object</div>
     ),
     cell: ({ row }) => {
       const object = row.original.object;
 
       return (
-        <div className="hidden xl:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="hidden xl:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span>{object}</span>
         </div>
       );
@@ -93,16 +94,17 @@ export const columns: ColumnDef<Deals>[] = [
   {
     accessorKey: "company",
     header: () => (
-      <div className="font-medium text-[12px] leading-[18px] px-[24px] py-[12px]">
+      <div className="font-medium text-[12px] leading-[18px] lg:px-[24px] py-[12px]">
         Company
       </div>
     ),
     cell: ({ row }) => {
-      const companyName = row.original.company.name;
-      const companyLogo = row.original.company.logo;
-
+      const companyName = row.original.company;
+      const companyLogo = companies
+        .find((company) => company.name === companyName)
+        ?.logo();
       return (
-        <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span>{companyLogo}</span> <span>{companyName}</span>
         </div>
       );
@@ -111,28 +113,29 @@ export const columns: ColumnDef<Deals>[] = [
   {
     accessorKey: "statue",
     header: () => (
-      <div className="font-medium text-[12px] leading-[18px] px-[24px] py-[12px]">
+      <div className="font-medium text-[12px] leading-[18px] lg:px-[24px] py-[12px]">
         Statue
       </div>
     ),
     cell: ({ row }) => {
-      const statue = row.original.statue;
+      const statue: Statue = row.original.statue;
+
       let colorClass = "";
       let statueFormatted = "";
       switch (statue) {
-        case "pending":
+        case Statue.pending:
           colorClass = "bg-[#ECB30A]";
           statueFormatted = "Pending";
           break;
-        case "cancelled":
+        case Statue.cancelled:
           colorClass = "bg-[#EC0A0A]";
           statueFormatted = "Cancelled";
           break;
-        case "ongoing":
+        case Statue.ongoing:
           colorClass = "bg-[#2AD730]";
           statueFormatted = "Ongoing";
           break;
-        case "waiting":
+        case Statue.waiting:
           colorClass = "bg-[#960AEC]";
           statueFormatted = "Waiting for confirmation";
           break;
@@ -142,7 +145,7 @@ export const columns: ColumnDef<Deals>[] = [
       }
 
       return (
-        <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] px-[24px] py-[12px] items-center">
+        <div className="flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span
             className={cn(colorClass, "h-[6px] rounded-full w-[6px]")}
           ></span>
@@ -154,7 +157,7 @@ export const columns: ColumnDef<Deals>[] = [
   {
     accessorKey: "amount",
     header: () => (
-      <div className="font-medium text-[12px] leading-[18px] px-[24px] py-[12px]">
+      <div className="font-medium text-[12px] leading-[18px] lg:px-[24px] py-[12px]">
         Amount
       </div>
     ),
@@ -181,7 +184,7 @@ export const columns: ColumnDef<Deals>[] = [
       const formatted = formattedAmount + " $USD";
 
       return (
-        <div className="px-[24px] py-[12px] text-[#344054] font-medium">
+        <div className="lg:px-[24px] py-[12px] text-[#344054] font-medium">
           {formatted}
         </div>
       );

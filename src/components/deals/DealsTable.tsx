@@ -1,8 +1,9 @@
-import { columns, Deals } from "./columns";
+import { Deal } from "@/store/store";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
 
 interface DealsTableProps {
-  deals: Deals[];
+  deals: Deal[];
 }
 
 export const DealsTable = ({ deals }: DealsTableProps) => {
