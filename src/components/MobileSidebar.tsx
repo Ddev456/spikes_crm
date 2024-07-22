@@ -15,8 +15,24 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 import { UserDropdownMenu } from "./UserDropdownMenu";
 import { UserAvatar } from "@/assets/UserAvatar";
+import { useDealStore } from "@/store/store";
+import { useEffect, useState } from "react";
 
 export const MobileSidebar = () => {
+  const { deals } = useDealStore((state) => ({
+    deals: state.deals,
+  }));
+  const [progressQuantity, setProgressQuantity] = useState(13 - deals.length);
+  const [progress, setProgress] = useState((deals.length / 13) * 100);
+
+  console.log(deals.length);
+
+  useEffect(() => {
+    console.log("trigger !");
+
+    setProgress((deals.length / 13) * 100);
+    setProgressQuantity(13 - deals.length);
+  }, [deals.length]);
   return (
     <aside className="h-full flex flex-col justify-around w-full bg-background">
       <div className="w-full aside_links flex flex-col">
@@ -136,10 +152,10 @@ export const MobileSidebar = () => {
               <span>Deals</span>
             </div>
             <div className="cta-progress-bar flex flex-col gap-[5px]">
-              <Progress value={66} className="h-[8px] rounded-[17px]" />
+              <Progress value={progress} className="h-[8px] rounded-[17px]" />
 
               <span className="text-[#344054] text-[12px] leading-[16px]">
-                5 Deals left from 30 Leads
+                {progressQuantity} Deals left from 30 Leads
               </span>
             </div>
             <div className="cta-button flex gap-[12px]">

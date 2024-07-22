@@ -12,7 +12,7 @@ import { MobileSidebar } from "./MobileSidebar";
 
 export const MobileNav = () => {
   return (
-    <div className="flex lg:hidden p-3 gap-4">
+    <div className="flex md:hidden p-3 gap-4">
       <img src="/logo.png" alt="logo" width={32} height={32} />
       <Drawer direction="left">
         <DrawerTrigger>

@@ -46,6 +46,7 @@ import {
   FormMessage,
 } from "./ui/form";
 import { useForm, UseFormReturn } from "react-hook-form";
+import { useToast } from "./ui/use-toast";
 
 const formSchema = z.object({
   object: z.string().min(1, { message: "Required" }),
@@ -55,6 +56,7 @@ const formSchema = z.object({
 });
 
 export function NewDeal() {
+  const { toast } = useToast();
   const [open, setOpen] = React.useState(false);
   const { addDeal, deals } = useDealStore();
 
@@ -71,9 +73,8 @@ export function NewDeal() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
 
-    if (deals.length === 11) {
+    if (deals.length === 13) {
       return;
     }
 
@@ -89,7 +90,11 @@ export function NewDeal() {
       company,
       statue: statueValue,
     });
-
+    toast({
+      variant: "success",
+      title: "Congrats! You added a new deal. 🚀",
+      description: "You can now see it in your deals list.",
+    });
     /* close the dialog when the form is submitted */
     form.reset();
     setOpen(false);
@@ -107,13 +112,13 @@ export function NewDeal() {
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          {deals.length >= 11 && (
+          {deals.length >= 13 && (
             <DialogHeader>
               <DialogTitle>Maximum deals reached 🚀</DialogTitle>
               <DialogDescription>Come back later !</DialogDescription>
             </DialogHeader>
           )}
-          {deals.length < 11 && (
+          {deals.length < 13 && (
             <>
               <DialogHeader>
                 <DialogTitle>Add New Deal</DialogTitle>
@@ -137,7 +142,7 @@ export function NewDeal() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        {deals.length >= 11 && (
+        {deals.length >= 13 && (
           <>
             <DrawerHeader className="text-left">
               <DrawerTitle>Maximum deals reached 🚀</DrawerTitle>
@@ -151,7 +156,7 @@ export function NewDeal() {
             )
           </>
         )}
-        {deals.length < 11 && (
+        {deals.length < 13 && (
           <>
             <DrawerHeader className="text-left">
               <DrawerTitle>Add New Deal</DrawerTitle>

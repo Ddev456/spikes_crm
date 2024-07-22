@@ -54,7 +54,7 @@ export const columns: ColumnDef<Deal>[] = [
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="hidden lg:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center"
+          className="hidden xl:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center"
         >
           Add
           <ArrowDown className="h-4 w-4" />
@@ -68,7 +68,7 @@ export const columns: ColumnDef<Deal>[] = [
         year: "2-digit",
       });
       return (
-        <div className="hidden lg:flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
+        <div className="hidden xl:flex text-[#344054] font-medium text-[14px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span>{`${formattedDate.split(" ")[0]}. ${
             formattedDate.split(" ")[1]
           }`}</span>

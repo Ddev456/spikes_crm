@@ -91,14 +91,14 @@ export function DataTable<TData, TValue>({
     { label: "bg-[#960AEC]", value: "Waiting for confirmation" },
     { label: "bg-[#0085FF]", value: "Completed" },
   ];
-
+  const isFiltered = table.getState().columnFilters.length > 0;
   return (
     <div className="w-full">
-      <div className="w-full 2xl:w-[968px] flex items-center py-4">
-        <div className="flex gap-[15px] md:gap-[60px] 2xl:gap-[193px] items-center">
+      <div className="w-full flex items-center py-4">
+        <div className="w-full flex flex-row justify-between items-center">
           <div className="flex gap-[12px]">
             <div
-              className="h-8 w-[120px] lg:!w-[238px] border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
+              className="max-w-24 xl:max-w-48 h-8 border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
               cmdk-input-wrapper=""
             >
               <Search className="mr-2 shrink-0 h-[13px] w-[13px]" />
@@ -124,7 +124,7 @@ export function DataTable<TData, TValue>({
                 table.getColumn("object")?.setFilterValue(event)
               }
             >
-              <SelectTrigger className="hidden xl:flex h-8 bg-white">
+              <SelectTrigger className="w-24 h-8 bg-white">
                 <SelectValue placeholder="Object" />
               </SelectTrigger>
               <SelectContent>
@@ -140,12 +140,10 @@ export function DataTable<TData, TValue>({
                 (table.getColumn("company")?.getFilterValue() as string) ?? ""
               }
               onValueChange={(event: string) => {
-                console.log(event);
-
                 table.getColumn("company")?.setFilterValue(event);
               }}
             >
-              <SelectTrigger className="hidden xl:flex h-8 bg-white">
+              <SelectTrigger className="w-[102px] h-8 bg-white">
                 <SelectValue placeholder="Company" />
               </SelectTrigger>
               <SelectContent>
@@ -155,7 +153,8 @@ export function DataTable<TData, TValue>({
                     value={company.name}
                   >
                     <div className="flex font-semibold items-center gap-2">
-                      <span>{company.logo()}</span>
+                      {/*                       <span>{company.logo()}</span>
+                       */}{" "}
                       <span>{company.name}</span>
                     </div>
                   </SelectItem>
@@ -178,7 +177,7 @@ export function DataTable<TData, TValue>({
                  */
               }}
             >
-              <SelectTrigger className="hidden xl:flex h-8 bg-white">
+              <SelectTrigger className="w-24 h-8 bg-white">
                 <SelectValue placeholder="Statue" />
               </SelectTrigger>
               <SelectContent>
@@ -211,14 +210,17 @@ export function DataTable<TData, TValue>({
                 ))}
               </SelectContent>
             </Select>
-            <Button
-              className="hidden lg:flex h-8"
-              onClick={() => {
-                table.setColumnFilters([]);
-              }}
-            >
-              Reset Filters
-            </Button>
+            {/* hidden reset button if no filters are applied */}
+            {isFiltered && (
+              <Button
+                className="h-8"
+                onClick={() => {
+                  table.setColumnFilters([]);
+                }}
+              >
+                Reset Filters
+              </Button>
+            )}
           </div>
           <div className="flex gap-[8px]">
             <Button
