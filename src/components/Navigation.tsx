@@ -50,7 +50,7 @@ export const Navigation = () => {
 
   return (
     <div className="mt-[34px] flex gap-[36px]">
-      <div className="w-full navigation-tabs flex flex-col gap-[16px] pl-[12px] md:pl-[45px]">
+      <div className="w-full navigation-tabs flex flex-col gap-[16px] pl-[12px]">
         <h3 className="text-[36px] leading-[44px] font-semibold text-[#344054]">
           Deals
         </h3>
@@ -59,7 +59,7 @@ export const Navigation = () => {
           defaultValue="all"
           className="w-full"
         >
-          <div className="flexgap-[3px]">
+          <div className="flex gap-[3px]">
             <TabsList className="mb-[2rem] md:mb-0 flex-wrap max-w-[450px] md:max-w-full md:flex-nowrap">
               {tabs.map((tab) => (
                 <TabsTrigger

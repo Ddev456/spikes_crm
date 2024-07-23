@@ -2,7 +2,7 @@ import { Navigation } from "./Navigation";
 
 export const Dashboard = () => {
   return (
-    <div className="max-h-full bg-[#ffffff] rounded-l-[12px] border border-[#DEDEE8] w-full flex flex-col gap-[36px] mt-[30px]">
+    <div className="max-h-full bg-[#ffffff] rounded-l-[12px] border border-[#DEDEE8] w-full flex flex-col gap-[36px] md:mt-[30px]">
       <Navigation />
     </div>
   );

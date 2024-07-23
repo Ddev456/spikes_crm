@@ -95,7 +95,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="w-full">
       <div className="w-full flex items-center py-4">
-        <div className="w-full flex flex-row justify-between items-center">
+        <div className="w-full flex flex-row justify-around flex-wrap gap-[20px] items-center">
           <div className="flex gap-[12px]">
             <div
               className="max-w-24 xl:max-w-48 h-8 border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"

@@ -1,5 +1,4 @@
 import { HomeLineIcon } from "@/assets/icons/HomeLineIcon";
-import { SearchModal } from "./SearchModal";
 import { BarChartSquareIcon } from "@/assets/icons/BarChartSquareIcon";
 import { LayerIcon } from "@/assets/icons/LayerIcon";
 import { CheckDoneIcon } from "@/assets/icons/CheckDoneIcon";
@@ -36,9 +35,9 @@ export const MobileSidebar = () => {
   return (
     <aside className="h-full flex flex-col justify-around w-full bg-background">
       <div className="w-full aside_links flex flex-col">
-        <div className="aside_links_header flex flex-col gap-[10px] items-start px-[16px] py-[9px]">
+        {/* <div className="aside_links_header flex flex-col gap-[10px] items-start px-[16px] py-[9px]">
           <SearchModal />
-        </div>
+        </div> */}
         <div className="w-full navigation aside_links_navigation pl-[28px] flex flex-col gap-[4px] px-[32px] py-[6px]">
           <span className="text-[#A0A2A6] text-[14px] leading-[10px] font-semibold">
             Navigation

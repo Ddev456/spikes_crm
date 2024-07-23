@@ -26,6 +26,7 @@ import { UserAvatar } from "@/assets/UserAvatar";
 import { useDealStore } from "@/store/store";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { UpgradeModal } from "./UpgradeModal";
 
 const asideNavLinks = [
   {
@@ -94,6 +95,7 @@ export const Sidebar = () => {
       clearTimeout(timeoutId);
     };
   }, [deals]);
+
   return (
     <>
       <aside className="hidden md:flex flex-col justify-between mt-[32px] xl:w-[326px] bg-background">
@@ -108,13 +110,10 @@ export const Sidebar = () => {
             </span>
             <ul className="flex flex-col items-center xl:items-start">
               {asideNavLinks.map((link) => (
-                <TooltipProvider>
+                <TooltipProvider key={link.name}>
                   <Tooltip delayDuration={150}>
                     <TooltipTrigger className="xl:w-full">
-                      <li
-                        key={link.name}
-                        className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] w-full h-[40px] px-[12px] py-[8px] flex gap-[8px]"
-                      >
+                      <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] w-full h-[40px] px-[12px] py-[8px] flex gap-[8px]">
                         <a
                           href="#"
                           className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
@@ -140,20 +139,26 @@ export const Sidebar = () => {
             </span>
             <ul className="flex flex-col items-center xl:items-start">
               {asideNavLinksList.map((link) => (
-                <li
-                  key={link.name}
-                  className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]"
-                >
-                  <a
-                    href="#"
-                    className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
-                  >
-                    <span className="[&>*]:w-[1.5rem] [&>*]:h-[1.5rem] [&>*]:xl:w-[18px] [&>*]:xl:h-[18px]">
-                      {link.icon}
-                    </span>
-                    <span className="xl:flex hidden">{link.name}</span>
-                  </a>
-                </li>
+                <TooltipProvider key={link.name}>
+                  <Tooltip delayDuration={150}>
+                    <TooltipTrigger className="xl:w-full">
+                      <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] w-full h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+                        <a
+                          href="#"
+                          className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
+                        >
+                          <span className="[&>*]:w-[1.5rem] [&>*]:h-[1.5rem] [&>*]:xl:w-[18px] [&>*]:xl:h-[18px]">
+                            {link.icon}
+                          </span>
+                          <span className="xl:flex hidden">{link.name}</span>
+                        </a>
+                      </li>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="xl:hidden">
+                      <p>{link.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ))}
             </ul>
           </div>
@@ -161,20 +166,26 @@ export const Sidebar = () => {
             <span className="text-[#A0A2A6] text-[14px] leading-[24px] font-semibold"></span>
             <ul className="flex flex-col items-center xl:items-start">
               {asideNavLinksSettings.map((link) => (
-                <li
-                  key={link.name}
-                  className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] h-[40px] px-[12px] py-[8px] flex gap-[8px]"
-                >
-                  <a
-                    href="#"
-                    className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
-                  >
-                    <span className="[&>*]:w-[1.5rem] [&>*]:h-[1.5rem] [&>*]:xl:w-[18px] [&>*]:xl:h-[18px]">
-                      {link.icon}
-                    </span>
-                    <span className="xl:flex hidden">{link.name}</span>
-                  </a>
-                </li>
+                <TooltipProvider key={link.name}>
+                  <Tooltip delayDuration={150}>
+                    <TooltipTrigger className="xl:w-full">
+                      <li className="cursor-pointer hover:bg-white nav-item-base rounded-[6px] w-full h-[40px] px-[12px] py-[8px] flex gap-[8px]">
+                        <a
+                          href="#"
+                          className="hover:text-[#344054] flex items-center h-[24px] gap-[12px] text-[#344054] font-semibold text-[16px] leading-[24px]"
+                        >
+                          <span className="[&>*]:w-[1.5rem] [&>*]:h-[1.5rem] [&>*]:xl:w-[18px] [&>*]:xl:h-[18px]">
+                            {link.icon}
+                          </span>
+                          <span className="xl:flex hidden">{link.name}</span>
+                        </a>
+                      </li>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="xl:hidden">
+                      <p>{link.name}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               ))}
             </ul>
           </div>
@@ -217,9 +228,10 @@ export const Sidebar = () => {
               </div>
             </div>
           </div>
-          <Button className="group transition-all w-14 border xl:hidden flex items-center px-[18px] py-[10px] rounded-[8px] gap-[12px] shadow-[0px_0px_0px_2px_rgba(240,240,240,1)] shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[0px_4px_9.8px_0px_rgba(255,255,255,0.25)_inset]">
+          <UpgradeModal />
+          {/* <Button className="group transition-all w-14 border xl:hidden flex items-center px-[18px] py-[10px] rounded-[8px] gap-[12px] shadow-[0px_0px_0px_2px_rgba(240,240,240,1)] shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[0px_4px_9.8px_0px_rgba(255,255,255,0.25)_inset]">
             <svg
-              className="group-hover:hidden flex"
+              className="block group-hover:hidden group-hover:translate-y-10"
               width="22"
               height="16"
               viewBox="0 0 22 16"
@@ -231,8 +243,8 @@ export const Sidebar = () => {
                 fill="white"
               />
             </svg>
-            <span className="group-hover:flex hidden">Pro</span>
-          </Button>
+            <span className="hidden group-hover:block">Pro</span>
+          </Button> */}
           <UserDropdownMenu>
             <div className="max-w-full justify-center w-14 xl:hidden cursor-pointer flex items-center gap-[11px] text-[14px]">
               <div className="avatar-thumbnail">

@@ -79,13 +79,13 @@ export const columns: ColumnDef<Deal>[] = [
   {
     accessorKey: "object",
     header: () => (
-      <div className="hidden xl:flex lg:px-[24px] py-[12px]">Object</div>
+      <div className="hidden md:flex lg:px-[24px] py-[12px]">Object</div>
     ),
     cell: ({ row }) => {
       const object = row.original.object;
 
       return (
-        <div className="hidden xl:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center">
+        <div className="hidden md:flex text-[#344054] font-medium text-[12px] leading-[18px] gap-[12px] lg:px-[24px] py-[12px] items-center">
           <span>{object}</span>
         </div>
       );

@@ -12,15 +12,17 @@ export default function Home() {
   setTimeout(() => {
     setLoading(false);
   }, 1200);
-  return loading ? (
-    <div className="h-screen w-screen bg-[#FCFCFC]">
-      <Loader />
-    </div>
-  ) : (
+  return (
     <main className="bg-[#f7f9fa] flex flex-col md:flex-row">
       <Sidebar />
       <MobileNav />
-      <Dashboard />
+      {loading ? (
+        <div className="h-[95vh] w-screen bg-[#FCFCFC]">
+          <Loader />
+        </div>
+      ) : (
+        <Dashboard />
+      )}
       <Toaster />
     </main>
   );
