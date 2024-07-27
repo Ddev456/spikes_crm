@@ -1,5 +1,3 @@
-// store.ts
-
 import { create } from "zustand";
 
 import { StripeIcon } from "@/assets/icons/logo/StripeIcon";
@@ -75,13 +73,6 @@ export interface company {
   logo: () => JSX.Element;
 }
 
-/* export type Statue =
-  | "pending"
-  | "cancelled"
-  | "ongoing"
-  | "waiting"
-  | "completed"; */
-
 export interface Deal {
   id: string;
   add: Date;
@@ -94,6 +85,7 @@ export interface Deal {
 interface DealStore {
   deals: Deal[];
   addDeal: (newDeal: Deal) => void;
+  removeDeals: (indexes: number[]) => void;
 }
 
 export const useDealStore = create<DealStore>()((set) => ({
@@ -172,4 +164,8 @@ export const useDealStore = create<DealStore>()((set) => ({
     },
   ],
   addDeal: (newDeal) => set((state) => ({ deals: [...state.deals, newDeal] })),
+  removeDeals: (indexes) =>
+    set((state) => ({
+      deals: state.deals.filter((_, index) => !indexes.includes(index)),
+    })),
 }));
