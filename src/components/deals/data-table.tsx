@@ -94,159 +94,196 @@ export function DataTable<TData, TValue>({
   ];
   const isFiltered = table.getState().columnFilters.length > 0;
   return (
-    <div className="w-full">
-      <div className="w-full flex items-center py-4">
-        <div className="w-full flex flex-row justify-around flex-wrap gap-[20px] items-center">
-          <div className="flex gap-[12px]">
-            <div
-              className="max-w-24 xl:max-w-48 h-8 border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
-              cmdk-input-wrapper=""
-            >
-              <Search className="mr-2 shrink-0 h-[13px] w-[13px]" />
-              <Input
+    <div className="w-full max-h-[500px] md:max-h-[700px] no-scrollbar overflow-auto">
+      <div className="w-full h-[750px]">
+        <div className="w-full flex flex-col items-center py-4 sticky top-0 z-10 bg-[#FFFF]">
+          <div className="flex w-full h-[40px] ml-2 items-center">
+            {table.getFilteredSelectedRowModel().rows.length > 0 && (
+              <>
+                <div className="flex-1 text-sm text-muted-foreground">
+                  {table.getFilteredSelectedRowModel().rows.length} of{" "}
+                  {table.getFilteredRowModel().rows.length} deal(s) selected.
+                </div>
+                <div className="flex items-center gap-2 mr-9">
+                  <Button
+                    className="text-[12px] flex h-[32px] w-[121px] gap-[12px] rounded-[5px] bg-red-400 hover:bg-red-500"
+                    onClick={() => {
+                      const ids = table
+                        .getSelectedRowModel()
+                        .flatRows.map((row) => row.index);
+                      removeDeals(ids);
+                      toast({
+                        title: "Deal(s) deleted",
+                        description: "Deal(s) deleted successfully",
+                        duration: 3000,
+                        variant: "default",
+                      });
+                      table.resetRowSelection();
+                    }}
+                  >
+                    Delete
+                  </Button>
+                  <Button
+                    className="text-[12px] flex h-[32px] w-[121px] gap-[12px] rounded-[5px] bg-blue-400 hover:bg-blue-500"
+                    onClick={() => {
+                      table.resetRowSelection();
+                    }}
+                  >
+                    Reset Selection
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+          <div className="w-full flex flex-row flex-wrap md:flex-nowrap justify-between gap-[20px] items-center">
+            <div className="flex gap-[12px]">
+              <div
+                className="max-w-24 xl:max-w-48 h-8 border flex items-center border-b py-[4px] px-[16px] bg-[#ffffff] text-card-foreground rounded-[8px]"
+                cmdk-input-wrapper=""
+              >
+                <Search className="mr-2 shrink-0 h-[13px] w-[13px]" />
+                <Input
+                  value={
+                    (table.getColumn("object")?.getFilterValue() as string) ??
+                    ""
+                  }
+                  onChange={(event) =>
+                    table
+                      .getColumn("object")
+                      ?.setFilterValue(event.target.value)
+                  }
+                  className={cn(
+                    "h-6 ring-0 border-0 flex rounded-md text-sm outline-none bg-[#ffffff] placeholder:text-card-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  )}
+                  placeholder="Search"
+                />
+              </div>
+
+              <Select
                 value={
                   (table.getColumn("object")?.getFilterValue() as string) ?? ""
                 }
-                onChange={(event) =>
-                  table.getColumn("object")?.setFilterValue(event.target.value)
+                onValueChange={(event: string) =>
+                  table.getColumn("object")?.setFilterValue(event)
                 }
-                className={cn(
-                  "h-6 ring-0 border-0 flex rounded-md text-sm outline-none bg-[#ffffff] placeholder:text-card-foreground disabled:cursor-not-allowed disabled:opacity-50"
-                )}
-                placeholder="Search"
-              />
-            </div>
-
-            <Select
-              value={
-                (table.getColumn("object")?.getFilterValue() as string) ?? ""
-              }
-              onValueChange={(event: string) =>
-                table.getColumn("object")?.setFilterValue(event)
-              }
-            >
-              <SelectTrigger className="w-24 h-8 bg-white">
-                <SelectValue placeholder="Object" />
-              </SelectTrigger>
-              <SelectContent>
-                {uniqueObjectValues.map((object, index) => (
-                  <SelectItem key={`${object}-${index}`} value={object}>
-                    {object}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select
-              value={
-                (table.getColumn("company")?.getFilterValue() as string) ?? ""
-              }
-              onValueChange={(event: string) => {
-                table.getColumn("company")?.setFilterValue(event);
-              }}
-            >
-              <SelectTrigger className="w-[102px] h-8 bg-white">
-                <SelectValue placeholder="Company" />
-              </SelectTrigger>
-              <SelectContent>
-                {companies.map((company, index) => (
-                  <SelectItem
-                    key={`${company.name}-${index}`}
-                    value={company.name}
-                  >
-                    <div className="flex font-semibold items-center gap-2">
-                      {/*                       <span>{company.logo()}</span>
-                       */}{" "}
-                      <span>{company.name}</span>
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Select
-              value={
-                (table.getColumn("statue")?.getFilterValue() as string) ?? ""
-              }
-              onValueChange={(event: string) => {
-                const selectedValue = event.toString();
-
-                if (selectedValue === "All") {
-                  table.getColumn("statue")?.setFilterValue("");
-                } else {
-                  table.getColumn("statue")?.setFilterValue(selectedValue);
+              >
+                <SelectTrigger className="w-24 h-8 bg-white">
+                  <SelectValue placeholder="Object" />
+                </SelectTrigger>
+                <SelectContent>
+                  {uniqueObjectValues.map((object, index) => (
+                    <SelectItem key={`${object}-${index}`} value={object}>
+                      {object}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select
+                value={
+                  (table.getColumn("company")?.getFilterValue() as string) ?? ""
                 }
-                /*                 table.getColumn("statue")?.setFilterValue(event)
-                 */
-              }}
-            >
-              <SelectTrigger className="w-24 h-8 bg-white">
-                <SelectValue placeholder="Statue" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem key={"all"} value={"All"}>
-                  <div className="flex items-center gap-2">
-                    <span
-                      className={cn(
-                        "bg-[#344054]",
-                        "h-[6px] rounded-full w-[6px]"
-                      )}
-                    ></span>
-                    <span>All</span>
-                  </div>
-                </SelectItem>
-                {statues.map((statue, index) => (
-                  <SelectItem
-                    key={`${statue.value}-${index}`}
-                    value={statue.value}
-                  >
+                onValueChange={(event: string) => {
+                  table.getColumn("company")?.setFilterValue(event);
+                }}
+              >
+                <SelectTrigger className="w-[102px] h-8 bg-white">
+                  <SelectValue placeholder="Company" />
+                </SelectTrigger>
+                <SelectContent>
+                  {companies.map((company, index) => (
+                    <SelectItem
+                      key={`${company.name}-${index}`}
+                      value={company.name}
+                    >
+                      {company.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Select
+                value={
+                  (table.getColumn("statue")?.getFilterValue() as string) ?? ""
+                }
+                onValueChange={(event: string) => {
+                  const selectedValue = event.toString();
+
+                  if (selectedValue === "All") {
+                    table.getColumn("statue")?.setFilterValue("");
+                  } else {
+                    table.getColumn("statue")?.setFilterValue(selectedValue);
+                  }
+                  /*                 table.getColumn("statue")?.setFilterValue(event)
+                   */
+                }}
+              >
+                <SelectTrigger className="w-24 h-8 bg-white">
+                  <SelectValue placeholder="Statue" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem key={"all"} value={"All"}>
                     <div className="flex items-center gap-2">
                       <span
                         className={cn(
-                          statue.label,
+                          "bg-[#344054]",
                           "h-[6px] rounded-full w-[6px]"
                         )}
                       ></span>
-                      <span>{statue.value}</span>
+                      <span>All</span>
                     </div>
                   </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {/* hidden reset button if no filters are applied */}
-            {isFiltered && (
+                  {statues.map((statue, index) => (
+                    <SelectItem
+                      key={`${statue.value}-${index}`}
+                      value={statue.value}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={cn(
+                            statue.label,
+                            "h-[6px] rounded-full w-[6px]"
+                          )}
+                        ></span>
+                        <span>{statue.value}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {/* hidden reset button if no filters are applied */}
+              {isFiltered && (
+                <Button
+                  className="h-8"
+                  onClick={() => {
+                    table.setColumnFilters([]);
+                  }}
+                >
+                  Reset Filters
+                </Button>
+              )}
+            </div>
+            <div className="mr-8 flex gap-[8px]">
               <Button
-                className="h-8"
                 onClick={() => {
-                  table.setColumnFilters([]);
+                  toast({
+                    title: "Deals exported successfully !",
+                    description: new Date(Date.now()).toDateString(),
+                  });
                 }}
+                className="hover:bg-[#E8E7EA] text-[12px] flex gap-[5px] px-[16px] py-[4px] w-[50px] lg:w-[89px] h-[32px] border border-[#E8E7EA] bg-white text-[#101828]"
               >
-                Reset Filters
+                <ExportIcon />
+                <span className="hidden lg:block">Export</span>
               </Button>
-            )}
-          </div>
-          <div className="flex gap-[8px]">
-            <Button
-              onClick={() => {
-                toast({
-                  title: "Deals exported successfully !",
-                  description: new Date(Date.now()).toDateString(),
-                });
-              }}
-              className="hover:bg-[#E8E7EA] text-[12px] flex gap-[5px] px-[16px] py-[4px] w-[89px] h-[32px] border border-[#E8E7EA] bg-white text-[#101828]"
-            >
-              <ExportIcon />
-              <span>Export</span>
-            </Button>
-            <NewDeal />
-            {/* <Button className="text-[12px] flex h-[32px] w-[121px] gap-[12px] rounded-[5px] border border-[#101828] bg-[#101828] text-white px-[18px] py-[10px]  shadow-[0px_0px_0px_2px_rgba(240,240,240,1)] shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[0px_4px_9.8px_0px_rgba(255,255,255,0.25)_inset]">
+              <NewDeal />
+              {/* <Button className="text-[12px] flex h-[32px] w-[121px] gap-[12px] rounded-[5px] border border-[#101828] bg-[#101828] text-white px-[18px] py-[10px]  shadow-[0px_0px_0px_2px_rgba(240,240,240,1)] shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[0px_4px_9.8px_0px_rgba(255,255,255,0.25)_inset]">
               <FolderIcon />
               <span>New Deal</span>
             </Button> */}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="w-full no-scrollbar overflow-auto max-h-[450px] md:max-h-[600px]">
-        <Table className="h-full relative">
-          <TableHeader className="sticky top-0 z-1">
+        <Table className="relative">
+          <TableHeader className="sticky top-[100px] z-1">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -293,26 +330,6 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        {/* delete selected rows */}
-        <div className="flex items-center gap-2">
-          {table.getFilteredSelectedRowModel().rows.length > 0 && (
-            <Button
-              className="text-[12px] flex h-[32px] w-[121px] gap-[12px] rounded-[5px] bg-red-500"
-              onClick={() => {
-                const ids = table
-                  .getSelectedRowModel()
-                  .flatRows.map((row) => row.index);
-                removeDeals(ids);
-              }}
-            >
-              Delete
-            </Button>
-          )}
-        </div>
       </div>
     </div>
   );
