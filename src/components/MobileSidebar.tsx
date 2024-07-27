@@ -24,16 +24,12 @@ export const MobileSidebar = () => {
   const [progressQuantity, setProgressQuantity] = useState(13 - deals.length);
   const [progress, setProgress] = useState((deals.length / 13) * 100);
 
-  console.log(deals.length);
-
   useEffect(() => {
-    console.log("trigger !");
-
     setProgress((deals.length / 13) * 100);
     setProgressQuantity(13 - deals.length);
   }, [deals.length]);
   return (
-    <aside className="h-full flex flex-col justify-around w-full bg-background">
+    <aside className="h-full flex flex-col justify-around w-[350px] bg-background">
       <div className="w-full aside_links flex flex-col">
         {/* <div className="aside_links_header flex flex-col gap-[10px] items-start px-[16px] py-[9px]">
           <SearchModal />

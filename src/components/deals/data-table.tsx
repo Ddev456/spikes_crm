@@ -243,9 +243,9 @@ export function DataTable<TData, TValue>({
           </div>
         </div>
       </div>
-      <div className="overflow-y-scroll h-[70vh] no-scrollbar w-full">
-        <Table>
-          <TableHeader>
+      <div className="w-full no-scrollbar overflow-auto max-h-[450px] md:max-h-[600px]">
+        <Table className="h-full relative">
+          <TableHeader className="sticky top-0 z-1">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -263,7 +263,7 @@ export function DataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="h-fit">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow

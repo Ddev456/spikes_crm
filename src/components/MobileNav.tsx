@@ -25,9 +25,9 @@ export const MobileNav = () => {
           <MenuIcon />
         </DrawerTrigger>
 
-        <DrawerContent className="h-full max-w-[85%]">
+        <DrawerContent className="h-full max-w-[65%]">
           <DrawerHeader className="px-2 py-0">
-            <DrawerTitle className="flex justify-center gap-4 items-center">
+            <DrawerTitle className="flex justify-center gap-4 items-center mt-4">
               <img src="/logo.png" alt="logo" width={32} height={32} />
               <span className="text-[#344054]">Menu</span>
             </DrawerTitle>
